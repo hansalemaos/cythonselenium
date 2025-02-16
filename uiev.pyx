@@ -20,6 +20,7 @@ from math import isnan as math_isnan
 import sys
 import traceback
 import os
+regex.cache_all(True)
 ################################################# START Pandas Printer ####################################################################
 
 cdef:
@@ -465,13 +466,16 @@ class Iframes:
         if key not in self.iframes:
             try:
                 wait = self.WebDriverWait(self.driver, 20)
-                regex.sub(rf"{self.seperator_for_duplicated_iframe}\d{{6}}$", "", key)
+                if isinstance(key,bytes):
+                    key=key.decode("utf-8","ignore")
+                key=regex.sub(rf"{self.seperator_for_duplicated_iframe}\d{{6}}$", "", key)
                 wait.until(
                     self.expected_conditions.frame_to_be_available_and_switch_to_it(
                         (self.By.CSS_SELECTOR, key)
                     )
                 )
             except Exception:
+                print(f"{key} not found!")
                 errwrite()
 
         else:
