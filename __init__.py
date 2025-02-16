@@ -2,7 +2,7 @@ from time import sleep as timesleep
 try:
     from .uiev import *
 except Exception as e:
-    import Cython, setuptools, platform, subprocess, os, sys, time,pandas,numpy
+    import Cython, setuptools, platform, subprocess, os, sys, time,pandas,numpy,regex
 
     iswindows = "win" in platform.platform().lower()
     olddict = os.getcwd()

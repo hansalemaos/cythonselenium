@@ -2,3 +2,4 @@ Cython
 numpy
 pandas
 setuptools
+regex
